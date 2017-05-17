@@ -355,6 +355,12 @@ class Loco implements TranslationServiceInterface
             $query['filter'] = $domain;
         }
 
+        // for synching xlf (only) we need the script format
+
+        if ($this->filesystemService->getFileExtension() === 'xlf') {
+            $query['format'] = 'script';
+        }
+
         foreach ($config['locales'] as $locale) {
             $resource = sprintf('export/locale/%s.%s', $locale, 'json');
             $response = $this->makeApiRequest($config['api_key'], 'GET', $resource, null, '', $query);
@@ -449,8 +455,6 @@ class Loco implements TranslationServiceInterface
                 $data['format'] = 'zend'; // 'Zend' will give us a flat array
                 break;
             case 'xlf':
-                $data['format'] = 'script';
-                break;
             default:
                 $data['format'] = 'symfony';
         }
