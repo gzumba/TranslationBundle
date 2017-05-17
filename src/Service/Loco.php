@@ -449,6 +449,8 @@ class Loco implements TranslationServiceInterface
                 $data['format'] = 'zend'; // 'Zend' will give us a flat array
                 break;
             case 'xlf':
+                $data['format'] = 'script';
+                break;
             default:
                 $data['format'] = 'symfony';
         }
